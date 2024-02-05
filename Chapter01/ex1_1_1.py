@@ -150,3 +150,27 @@ diff_x = img_convolved[:1, :] - s_g[:-1, :]
 plt.imshow(diff_x, cmap='bwr')
 
 # %%
+# Answer Quiz Question
+# Load noisy_number_2023.png
+img = io.imread(data_path + 'noisy_number_2023.png')
+
+# Create Gaussian Kernel
+sigma = 4.5
+kernel_radius = 4 * sigma
+x = np.array(np.arange(-kernel_radius, kernel_radius + 1, 1, dtype=int))
+g = create_gaussian_kernel(x, sigma)
+
+# Convolve image with kernel
+img_convolved = scipy.ndimage.convolve(img, np.outer(g, g))
+
+# Plot original and convolved images in a 1x2 grid
+fig, axes = plt.subplots(1, 2, figsize=(8, 4))
+ax = axes.ravel()
+ax[0].imshow(img, cmap='gray')
+ax[0].set_title('Original Image')
+ax[1].imshow(img_convolved, cmap='gray')
+ax[1].set_title('Convolved Image')
+plt.show()
+
+
+# %%

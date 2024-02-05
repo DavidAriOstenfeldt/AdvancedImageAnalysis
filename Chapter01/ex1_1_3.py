@@ -123,3 +123,30 @@ def create_smoothing_kernel(N, alpha, beta):
     B = np.array(first_row)
     kernel = np.linalg.inv(np.eye(N) - alpha * A - beta * B)
     return kernel
+
+
+# %%
+# Answer Quiz Question
+X_new = smooth_curve(dino_noisy, LAMBDA=.19)
+
+# Plot original and smoothed curves
+fig, axes = plt.subplots(1, 2, figsize=(8, 4))
+ax = axes.ravel()
+marker_size = 5
+ax[0].plot(dino_noisy[:, 0], dino_noisy[:, 1], '.-c', ms=marker_size)
+ax[0].set_title('Noisy Curve')
+ax[1].plot(X_new[:, 0], X_new[:, 1], '.-c', ms=marker_size)
+ax[1].set_title('Smoothed Curve')
+plt.show()
+
+length = 0
+for i, point in enumerate(X_new):
+    if i < len(X_new) -1:
+        length += np.sqrt((X_new[i, 0] - X_new[i + 1, 0])**2 + (X_new[i, 1] - X_new[i + 1, 1])**2)
+    else:
+        length += np.sqrt((X_new[i, 0] - X_new[0, 0])**2 + (X_new[i, 1] - X_new[0, 1])**2)
+    
+print(length)
+
+
+# %%
